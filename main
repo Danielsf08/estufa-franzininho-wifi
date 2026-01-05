@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/gpio.h"
+#include "driver/adc.h"
+#include "esp_adc_cal.h"
+
+// --------- DEFINIÇÕES ---------
+#define DHT11_PIN GPIO_NUM_4
+#define LDR_ADC_CHANNEL ADC1_CHANNEL_6  // GPIO34
+
+// --------- FUNÇÃO SIMPLES PARA DHT11 ---------
+// (Simples para teste acadêmico)
+int dht11_read(int *temperature, int *humidity)
+{
+    *temperature = 25; // valor fixo para teste
+    *humidity = 60;    // valor fixo para teste
+    return 0;
+}
+
+// --------- FUNÇÃO PRINCIPAL ---------
+void app_main(void)
+{
+    int temperature, humidity;
+    int ldr_value;
+
+    // Configuração do ADC (LDR)
+    adc1_config_width(ADC_WIDTH_BIT_12);
+    adc1_config_channel_atten(LDR_ADC_CHANNEL, ADC_ATTEN_DB_11);
+
+    printf("Sistema de Monitoramento de Estufa - Franzininho WiFi LAB01\n");
+
+    while (1)
+    {
+        // Leitura do DHT11 (simulada)
+        dht11_read(&temperature, &humidity);
+
+        // Leitura do LDR
+        ldr_value = adc1_get_raw(LDR_ADC_CHANNEL);
+
+        // Exibição no terminal
+        printf("Temperatura: %d °C\n", temperature);
+        printf("Umidade: %d %%\n", humidity);
+        printf("Luminosidade (ADC): %d\n", ldr_value);
+        printf("-----------------------------\n");
+
+        vTaskDelay(pdMS_TO_TICKS(2000));
+    }
+}
