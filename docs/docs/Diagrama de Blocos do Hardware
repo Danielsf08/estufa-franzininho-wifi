@@ -1,0 +1,13 @@
+O diagrama de blocos representa a arquitetura do sistema desenvolvido. 
+A Franzininho WiFi LAB01 (ESP32) atua como unidade central de processamento, 
+sendo responsável pela leitura dos sensores, processamento das informações 
+e acionamento das saídas.
+
+O sensor DHT11 é utilizado para a leitura da temperatura e umidade do ambiente, 
+enquanto o sensor LDR, conectado ao conversor analógico-digital do ESP32, 
+é responsável pela medição da luminosidade.
+
+As informações coletadas são exibidas em um display OLED utilizando o protocolo I2C, 
+permitindo ao usuário acompanhar os dados em tempo real. 
+Com base nos valores lidos, o sistema pode acionar um LED ou relé, 
+simulando o controle de dispositivos da estufa.
